@@ -15,7 +15,7 @@ const userConfig = (user: User): User => ({
 
 export default function HomeScreen() {
   const [users, setUsers] = useState<User[]>([]);
-  // const [refreshing, setRefreshing] = useState<boolean>(false);
+
   const userData = useCallback(async () => {
     console.log("fetching data");
     let data = await RandomAPI.fetchUsers({ fetchSampleSize: 10 });
@@ -43,6 +43,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
-    // marginTop: 50,
   },
 });
