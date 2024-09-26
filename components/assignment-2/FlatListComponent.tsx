@@ -1,5 +1,5 @@
-import React from "react";
-import { FlatList, Text, View } from "react-native";
+import React, { useState, useEffect, useCallback } from "react";
+import { FlatList, RefreshControl, Text, View } from "react-native";
 
 type User = {
   id: string;
@@ -8,41 +8,34 @@ type User = {
   avatar: string;
 };
 type Props = {
-  user: User[];
+  user?: User[];
+  // MockUser?: User[];
 };
 
-const data: User[] = [
-  {
-    id: "1",
-    first_name: "Alice",
-    last_name: "Johnson",
-    avatar: "https://example.com/avatar1.jpg",
-  },
-  {
-    id: "2",
-    first_name: "Michael",
-    last_name: "Smith",
-    avatar: "https://example.com/avatar2.jpg",
-  },
-  {
-    id: "3",
-    first_name: "Sofia",
-    last_name: "Garcia",
-    avatar: "https://example.com/avatar3.jpg",
-  },
-];
 const FlatListComponent = ({ user }: Props) => {
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    //refreshing used in <ScrollView> refreshControl attr
+    //which loads the <RefreshControl> with the refreshing attr
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
   return (
-    <div>
-      <FlatList
-        data={user}
-        renderItem={({ item }) => (
-          <View>
-            <Text>{item.first_name}</Text>
-          </View>
-        )}
-      />
-    </div>
+    <FlatList
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+      data={user}
+      keyExtractor={(item) => item.id}
+      renderItem={({ item }) => (
+        <View>
+          <Text>{item.first_name}</Text>
+        </View>
+      )}
+    />
   );
 };
 
