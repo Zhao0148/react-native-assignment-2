@@ -39,4 +39,9 @@ export class RandomAPI {
   static async fetchUsers({ fetchSampleSize }: SampleSize): Promise<User[]> {
     return this.fetch(AvailableTypes.Users, { fetchSampleSize });
   }
+
+  static wrapFetchedObjectInArray(data: User | User[]): User[] {
+    if (!Array.isArray(data)) data ? (data = [data]) : (data = []);
+    return data;
+  }
 }
