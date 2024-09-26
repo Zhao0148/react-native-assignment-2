@@ -41,7 +41,8 @@ export default function HomeScreen() {
       const extractedUsers = data.map(userConfig);
       setUsers((existingUserObj) => [...extractedUsers, ...existingUserObj]);
     } catch (error) {
-      throw new Error("Error fetching in function addUser");
+      // some toast notification for the user.
+        return undefined
     }
   }, []);
 
