@@ -1,24 +1,27 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { FlatList, RefreshControl, Text, View } from "react-native";
+import {
+  FlatList,
+  RefreshControl,
+  Text,
+  View,
+  StyleSheet,
+  Platform,
+} from "react-native";
+import { User } from "@/types";
+import UserAvatar from "react-native-user-avatar";
+import { styles } from "@/styles";
 
-type User = {
-  id: string;
-  first_name: string;
-  last_name: string;
-  avatar: string;
-};
 type Props = {
-  user?: User[];
+  users?: User[];
   // MockUser?: User[];
 };
 
-const FlatListComponent = ({ user }: Props) => {
+const FlatListComponent = ({ users }: Props) => {
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
-    //refreshing used in <ScrollView> refreshControl attr
-    //which loads the <RefreshControl> with the refreshing attr
+
     setTimeout(() => {
       setRefreshing(false);
     }, 2000);
@@ -28,15 +31,39 @@ const FlatListComponent = ({ user }: Props) => {
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
-      data={user}
-      keyExtractor={(item) => item.id}
-      renderItem={({ item }) => (
-        <View>
-          <Text>{item.first_name}</Text>
-        </View>
-      )}
+      data={users}
+      keyExtractor={(item) => item.id.toString()}
+      renderItem={({ item }) => UserComponent({ user: item })}
     />
   );
 };
 
 export default FlatListComponent;
+
+const UserComponent = ({ user }: { user: User }) => {
+  let isIOS = Platform.OS === "ios";
+  const { first_name, last_name, avatar } = user;
+isIOS = true;
+  return (
+    <View style={[styles.item]}>
+      {!isIOS && (
+        <UserAvatar
+          size={50}
+          name={`${first_name + last_name}`}
+          src={avatar}
+        />
+      )}
+      <View style={styles.textContainer}>
+        <Text style={styles.name}>{first_name}</Text>
+        <Text style={styles.name}>{last_name}</Text>
+      </View>
+      {isIOS && (
+        <UserAvatar
+          size={50}
+          name={`${first_name +last_name}`}
+          src={avatar}
+        />
+      )}
+    </View>
+  );
+};
