@@ -31,7 +31,7 @@ export class RandomAPI {
 
       return await response.json();
     } catch (error) {
-      console.error(`Error fetching ${type}:`, error);
+
       throw error;
     }
   }
