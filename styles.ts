@@ -4,7 +4,6 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 50,
-    // justifyContent: "space-between",
   },
   item: {
     padding: 20,
@@ -22,9 +21,7 @@ export const styles = StyleSheet.create({
   },
   textContainer: {
     flexDirection: "column",
-
     marginHorizontal: 15,
-    // alignItems: "flex-end"
   },
   name: {
     fontSize: 16,
@@ -38,8 +35,6 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     right: 20,
     bottom: 20,
-      // bottom: 70,
-      // right: 40,
     backgroundColor: "#26653A",
     borderRadius: 28,
     elevation: 8,

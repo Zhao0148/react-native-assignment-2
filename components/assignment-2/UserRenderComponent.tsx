@@ -4,11 +4,9 @@ import { Platform, View, Text } from "react-native";
 import UserAvatar from "react-native-user-avatar";
 
 const UserComponent = ({ user }: { user: User }) => {
-  let isIOS = Platform.OS === "ios";
+  const isIOS = Platform.OS === "ios";
   const { first_name = '', last_name = '', avatar = ''} = user;
-// console.log(`isIOS: ${isIOS}`);
 
-//   isIOS = true
   return (
     <View style={[styles.item]}>
       {!isIOS &&  <UserAvatar  size={50} name={`${first_name} ${last_name}`} src={avatar} />}
