@@ -10,6 +10,7 @@ declare module 'react-native-user-avatar' {
       textStyle?: TextStyle;
       bgColors?: string[];
       bgColor?: string;
+
     }
   
     const UserAvatar: ComponentType<UserAvatarProps>;
